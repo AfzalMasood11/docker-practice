@@ -1,0 +1,25 @@
+common: &common
+  host: <%= ENV['POSTGRES_HOST'] || 'db' %>
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV['POSTGRES_USER'] || 'pg_root' %>
+  password: <%= ENV['POSTGRES_PASSWORD'] || 'pg_root' %>
+  pool: <%= ENV['POSTGRES_POOL'] || 25 %>
+  timeout: 5000
+  reconnect: true
+
+development:
+  <<: *common
+  database: docker-practice_dev
+
+test:
+  <<: *common
+  database: docker-practice_test
+
+production:
+  <<: *common
+  database: <%= ENV['POSTGRES_DB_NAME'] || 'docker-practice_prod' %>
+
+staging:
+  <<: *common
+  database: <%= ENV['POSTGRES_DB_NAME'] || 'docker-practice_stag' %>
